@@ -1,0 +1,31 @@
+name: Build Android APK
+
+on:
+  workflow_dispatch: {}
+  push:
+    branches: [main]
+
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    env:
+      # Publishable (public-by-design) Supabase values for the Safar project
+      VITE_SUPABASE_URL: https://oklgbjxakhnfxhellift.supabase.co
+      VITE_SUPABASE_ANON_KEY: sb_publishable_N66C0CbZD82gr9J8-5XT6Q_04qO1vO-
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20, cache: npm }
+      - uses: actions/setup-java@v4
+        with: { distribution: temurin, java-version: 17 }
+      - run: npm ci
+      - run: npm i --no-save @capacitor/core @capacitor/cli @capacitor/android
+      - run: npm run build
+      - run: npx cap add android
+      - run: npx cap sync android
+      - name: Build debug APK
+        run: cd android && chmod +x gradlew && ./gradlew assembleDebug
+      - uses: actions/upload-artifact@v4
+        with:
+          name: HumSafar-APK
+          path: android/app/build/outputs/apk/debug/app-debug.apk
