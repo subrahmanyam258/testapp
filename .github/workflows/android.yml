@@ -22,6 +22,15 @@ jobs:
       - run: npm i --no-save @capacitor/core @capacitor/cli @capacitor/android
       - run: npm run build
       - run: npx cap add android
+      - name: Fix duplicate Kotlin classes (old stdlib-jdk7/jdk8 are merged into kotlin-stdlib 1.8+)
+        run: |
+          cat >> android/app/build.gradle <<'GRADLE'
+
+          configurations.all {
+              exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jdk7'
+              exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jdk8'
+          }
+          GRADLE
       - run: npx cap sync android
       - name: Build debug APK
         run: cd android && chmod +x gradlew && ./gradlew assembleDebug
