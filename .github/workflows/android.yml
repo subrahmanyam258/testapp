@@ -15,7 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
-        with: { node-version: 20, cache: npm }
+        with: { node-version: 22, cache: npm }
       - uses: actions/setup-java@v4
         with: { distribution: temurin, java-version: 21 }
       - run: npm ci
@@ -31,6 +31,10 @@ jobs:
               exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jdk8'
           }
           GRADLE
+      - name: Hum Safar launcher icon
+        run: |
+          cp -r android-res/. android/app/src/main/res/
+          sed -i 's/#FFFFFF/#0B6E6E/I' android/app/src/main/res/values/ic_launcher_background.xml
       - run: npx cap sync android
       - name: Build debug APK
         run: cd android && chmod +x gradlew && ./gradlew assembleDebug

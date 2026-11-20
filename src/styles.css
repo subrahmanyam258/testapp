@@ -18,8 +18,8 @@
   --r: 20px;
   --shadow: 0 6px 24px rgba(27, 34, 51, 0.07), 0 1px 3px rgba(27, 34, 51, 0.05);
   --shadow-lg: 0 18px 50px rgba(6, 74, 85, 0.22);
-  --sat: env(safe-area-inset-top, 0px);
-  --sab: env(safe-area-inset-bottom, 0px);
+  --sat: max(env(safe-area-inset-top, 0px), var(--safe-area-inset-top, 0px));
+  --sab: max(env(safe-area-inset-bottom, 0px), var(--safe-area-inset-bottom, 0px));
 }
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 html, body, #root { height: 100%; margin: 0; }
