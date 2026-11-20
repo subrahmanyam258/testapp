@@ -49,8 +49,20 @@ export const supaApi = {
   },
   async signIn(email, password) {
     const { error } = await sb.auth.signInWithPassword({ email, password })
-    if (error) throw new Error(error.message)
+    if (error) {
+      if (/not confirmed/i.test(error.message)) { const e = new Error('Please verify your email first'); e.code = 'unconfirmed'; throw e }
+      throw new Error(error.message)
+    }
     return { user: await this.me() }
+  },
+  async verifyCode(email, token) {
+    const { error } = await sb.auth.verifyOtp({ email, token: token.trim(), type: 'signup' })
+    if (error) throw new Error(/expired|invalid/i.test(error.message) ? 'That code is wrong or has expired' : error.message)
+    return { user: await this.me() }
+  },
+  async resendCode(email) {
+    const { error } = await sb.auth.resend({ type: 'signup', email })
+    if (error) throw new Error(/rate|seconds|limit/i.test(error.message) ? 'Please wait a minute before asking for another code' : error.message)
   },
   async signOut() { await sb.auth.signOut() },
   async updateProfile(patch) {

@@ -48,9 +48,16 @@ export const mockApi = {
   async init() { return db.user ? { id: 'me', email: db.user.email, ...db.profile } : null },
   onAuth() { return () => {} },
   async signUp(email, _pw, name) {
+    if (/\+otp/.test(email)) { db.pending = { email, name }; return { needsConfirm: true } }
     db.user = { email }; db.profile = { ...people.me, full_name: name || 'Aarav Reddy' }; save()
     return { user: { id: 'me', email, ...db.profile } }
   },
+  async verifyCode(email, token) {
+    if (token.trim() !== '123456') throw new Error('That code is wrong or has expired')
+    db.user = { email }; db.profile = { ...people.me, full_name: db.pending?.name || 'Aarav Reddy' }; save()
+    return { user: { id: 'me', email, ...db.profile } }
+  },
+  async resendCode() { await wait(300) },
   async signIn(email) {
     db.user = { email: email || 'demo@humsafar.app' }; save()
     return { user: { id: 'me', email: db.user.email, ...db.profile } }
