@@ -1,0 +1,47 @@
+1
+00:00:00,500 --> 00:00:02,444
+Meet Ari, an AI assistant.
+
+2
+00:00:02,444 --> 00:00:07,004
+Daniel has an overdue bill of seven hundred ninety-nine baht.
+
+3
+00:00:08,000 --> 00:00:12,258
+Daniel asks how he can pay, and what happens if he pays late.
+
+4
+00:00:14,500 --> 00:00:19,098
+Next, he asks why the bill is higher, and how many points he has.
+
+5
+00:00:20,000 --> 00:00:23,788
+Daniel switches to Thai, and Ari carries on in Thai.
+
+6
+00:00:24,000 --> 00:00:29,799
+He interrupts the bill to ask for a roaming pack for Japan, and Ari offers three packs.
+
+7
+00:00:30,000 --> 00:00:34,075
+He picks the seven day pack, then Ari brings him back to the bill.
+
+8
+00:00:36,000 --> 00:00:40,571
+Ari offers a privilege for his one thousand one hundred eighty points.
+
+9
+00:00:40,571 --> 00:00:43,967
+Daniel redeems a LINE sticker set and gets a coupon.
+
+10
+00:00:46,000 --> 00:00:49,736
+He promises to pay on Friday, and Ari saves it.
+
+11
+00:00:51,000 --> 00:00:53,847
+Ari asks for a quick rating and thanks him.
+
+12
+00:00:57,000 --> 00:01:00,082
+The chat closes, ready for the next customer.
